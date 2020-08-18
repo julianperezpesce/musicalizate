@@ -10,10 +10,21 @@ export class SpotifyService {
 
   getFeaturedPlaylist() {
     const headers = new HttpHeaders({
-      'Authorization': 'Bearer BQC8dmisEFn61OO-IRRoXDnOpzSBYd-axYqiP3NgcqxsvBw0NBoT9eLckq_T9D7ONtraAIeODBR5WtfeDmc'
+      'Authorization': 'Bearer BQBFm8pOiTrR4ePMb_i10QMAVtuCMe0zDvYpatyYFH2ohBP81Y6x_RYlnkG3bbOWf4fffbKbt_HUSee3X7o'
     })
-
+    
     return this.http.get('https://api.spotify.com/v1/browse/featured-playlists', { headers });
       
   }
+
+  getArtist( word: string ) {
+
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer BQBFm8pOiTrR4ePMb_i10QMAVtuCMe0zDvYpatyYFH2ohBP81Y6x_RYlnkG3bbOWf4fffbKbt_HUSee3X7o'
+    })
+    
+    return this.http.get(`https://api.spotify.com/v1/search?q=${word}&type=artist&limit=10`, { headers });
+      
+  }
+  
 }
