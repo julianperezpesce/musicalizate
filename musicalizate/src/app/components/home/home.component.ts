@@ -12,11 +12,12 @@ export class HomeComponent implements OnInit {
 
   constructor(private spotify: SpotifyService ) { 
 
-    spotify.getFeaturedPlaylist().subscribe( (data: any) => {
-      console.log(data.playlists.items);
+    spotify.getFeaturedPlaylist()
+      .subscribe( (data: any) => {
+      console.log(data);
       
-      this.newPlaylists = data.playlists.items;
-    })
+      this.newPlaylists = data;
+    });
   }
 
   ngOnInit(): void {
