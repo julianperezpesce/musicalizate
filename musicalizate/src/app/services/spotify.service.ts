@@ -8,28 +8,31 @@ import { map } from "rxjs/operators";
 })
 export class SpotifyService {
 
-  oAuthToken: string = 'BQCfJ2A7membihT2ioJ0yRkFkZWjUO-aUPL7BCdCS1b5eHmg585yWAgrSkMxruN1d4UUWFEj5wm40sZ64pw';
+  oAuthToken: string = 'BQDiQYdvVVDu-FLAgD0hJcVe14ROQt_FtFWR_Jnc0AR5HM6PVBGQilDSOvCOhPCXB6TXSqutIyHsqJAGKpc';
   
-  constructor(private http: HttpClient) { }
+  constructor( private http: HttpClient ) { }
 
-  getFeaturedPlaylist() {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.oAuthToken}`
-    })
+  getQuery( query: string ) {
+    const url = `https://api.spotify.com/v1/${ query }`; 
     
-    return this.http.get('https://api.spotify.com/v1/browse/featured-playlists', { headers })
-              .pipe(map( data => data['playlists'].items));
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${ this.oAuthToken }`
+    });
+
+    return this.http.get(url, { headers });
   }
 
-  getArtist( word: string ) {
+  getFeaturedPlaylist() {
 
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.oAuthToken}`
-    })
+    return this.getQuery('browse/featured-playlists')
+              .pipe(map( data => data['playlists'].items ));
+
+  }
+
+  getArtist( word: string ) {    
     
-    return this.http.get(`https://api.spotify.com/v1/search?q=${word}&type=artist&limit=10`, { headers })
-              .pipe( map(data => data['artists'].items));
-      
+    return this.getQuery(`search?q=${ word }&type=artist&limit=10`)
+            .pipe( map( data => data['artists'].items ));      
   }
   
 }
