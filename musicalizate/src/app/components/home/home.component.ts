@@ -9,14 +9,16 @@ import { SpotifyService } from 'src/app/services/spotify.service';
 export class HomeComponent implements OnInit {
   
   newPlaylists: any[] = [];
+  loading: boolean;
 
   constructor(private spotify: SpotifyService ) { 
 
-    spotify.getFeaturedPlaylist()
-      .subscribe( (data: any) => {
-      console.log(data);
-      
+    this.loading = true;
+
+    spotify.getFeaturedPlaylist()      
+      .subscribe( (data: any) => {      
       this.newPlaylists = data;
+      this.loading = false;
     });
   }
 
