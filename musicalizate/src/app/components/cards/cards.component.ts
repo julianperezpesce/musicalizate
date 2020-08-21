@@ -11,6 +11,17 @@ export class CardsComponent {
   
   constructor() { }
 
-  
+  artistPage( item: any ) {
+
+    let artistId;
+
+    if (item.type === 'artist') {
+      artistId = item.id;
+    } else {
+      artistId = item.id;
+    }
+    console.log(artistId);
+    
+  }
 
 }
