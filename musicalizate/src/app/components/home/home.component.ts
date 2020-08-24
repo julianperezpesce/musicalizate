@@ -11,6 +11,7 @@ export class HomeComponent implements OnInit {
   newPlaylists: any[] = [];
   loading: boolean;
 
+
   constructor(private spotify: SpotifyService ) { 
 
     this.loading = true;
