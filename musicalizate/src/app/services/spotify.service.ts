@@ -8,7 +8,7 @@ import { map } from "rxjs/operators";
 })
 export class SpotifyService {
 
-  oAuthToken: string = 'BQDV5QBgbJREx5NGTegUkXjoifH_j8VZfV_S_KAuIjRB8fU9bxk33t7XyO39UfM1UONLvXpjWpiZ-nm58cw';
+  oAuthToken: string = 'BQDXaniRqT3rfSB58vk-ZWtlhsUwqdiG-znHC_fFpOTQVmCdussBlcDrsHW-19ozi2gx4qHB8_zRKOKkaDY';
   
   constructor( private http: HttpClient ) { }
 
@@ -25,14 +25,34 @@ export class SpotifyService {
   getFeaturedPlaylist() {
 
     return this.getQuery('browse/featured-playlists')
-              .pipe(map( data => data['playlists'].items ));
+              .pipe(map( data => data['playlists'].items ));        
 
   }
 
-  getArtist( word: string ) {    
+  // getNewReleases() {
+
+  //   return this.getQuery('browse/new-releases?limit=20')
+  //             .pipe(map( data => data['albums'].items ));          
+
+  // }
+
+  //En el search buscar varios artistas
+  getArtists( word: string ) {    
     
     return this.getQuery(`search?q=${ word }&type=artist&limit=10`)
             .pipe( map( data => data['artists'].items ));      
+  }
+
+  //Obtener info de 1 artista
+  getArtist( id: string ) {    
+    
+    return this.getQuery(`artists/${ id }`);
+            // .pipe( map( data => data['artists'].items ));      
+  }
+
+  getTopTracks( id: string ) {
+    return this.getQuery(`artists/${ id }/top-tracks?country=us`)
+      .pipe( map( data => data['tracks']))
   }
   
 }

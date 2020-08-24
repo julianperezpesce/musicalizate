@@ -11,6 +11,7 @@ export class SearchComponent {
 
   artists: any [] = [];
 
+  //loading spinner
   loading: boolean;
 
   constructor(private spotify: SpotifyService) {}
@@ -18,12 +19,15 @@ export class SearchComponent {
   search(word: string) {
     console.log(word);
 
+    //loading spinner
     this.loading = true;
 
-    this.spotify.getArtist( word )
+    this.spotify.getArtists( word )
       .subscribe( (data: any) => {
         console.log(data);
         this.artists = data;
+        
+        //loading spinner
         this.loading = false;
       })
   } 
